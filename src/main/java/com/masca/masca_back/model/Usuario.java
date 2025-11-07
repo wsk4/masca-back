@@ -15,17 +15,13 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-<<<<<<< HEAD
-=======
 
->>>>>>> 77e7eb7cc7ac3e412801dae8018a2c0c4140870d
 public class Usuario {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-<<<<<<< HEAD
     @Column(name = "nombreUsuario", length = 50, nullable = false)
     private String nombre;
 
@@ -39,9 +35,9 @@ public class Usuario {
     @ManyToOne
     @JoinColumn(name = "codigo_rol")
     private Rol rol;
-=======
+
     @Column(name = "Usuario", length = 50, nullable = false)
     private String nombre;
 
->>>>>>> 77e7eb7cc7ac3e412801dae8018a2c0c4140870d
+
 }
