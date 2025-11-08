@@ -7,15 +7,16 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 @Entity
-
 public class Usuario {
 
     @Id
@@ -32,12 +33,14 @@ public class Usuario {
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String contra;
 
+    @Column(length = 20)
+    private String telefono;
+
     @ManyToOne
     @JoinColumn(name = "codigo_rol")
     private Rol rol;
 
-    @Column(name = "Usuario", length = 50, nullable = false)
-    private String nombre;
-
-
+    @ManyToOne
+    @JoinColumn(name = "codigo_direccion")
+    private Direccion direccion;
 }

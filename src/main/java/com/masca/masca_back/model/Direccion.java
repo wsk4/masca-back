@@ -13,12 +13,27 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-public class Marca {
+public class Direccion {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(name = "nombreMarca", length = 50, nullable = false)
-    private String nombre;
+    @Column(length = 100, nullable = false)
+    private String calle;
+
+    @Column(length = 10)
+    private String numero;
+
+    @Column(length = 50)
+    private String ciudad;
+
+    @Column(length = 50)
+    private String provincia;
+
+    @Column(length = 50)
+    private String pais;
+
+    @Column(length = 10)
+    private String codigoPostal;
 }

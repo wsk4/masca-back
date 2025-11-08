@@ -1,4 +1,5 @@
 package com.masca.masca_back.model;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -9,8 +10,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 @Entity
 public class Categoria {
 
@@ -18,12 +19,6 @@ public class Categoria {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(name = "nombreCategoria", length = 50, nullable = false)
+    @Column(length = 50, nullable = false)
     private String nombre;
-
-    @Column(name = "descripcionCategoria", length = 250, nullable = false)
-    private String descripcion;
-
-    @Column(name = "logoMarca", nullable = false)
-    private String logo;
 }

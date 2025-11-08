@@ -1,6 +1,5 @@
 package com.masca.masca_back.model;
 
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -15,25 +14,17 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-public class Perfume {
+public class PerfumeCategoria {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(name = "nombrePerfume", length = 50, nullable = false)
-    private String nombre;
-
-    @Column(name = "descripcionPerfume", length = 255)
-    private String descripcion;
-
-    @Column(nullable = false)
-    private Double precio;
-
-    @Column(nullable = false)
-    private Integer stock;
+    @ManyToOne
+    @JoinColumn(name = "codigo_perfume")
+    private Perfume perfume;
 
     @ManyToOne
-    @JoinColumn(name = "codigo_marca")
-    private Marca marca;
+    @JoinColumn(name = "codigo_categoria")
+    private Categoria categoria;
 }
