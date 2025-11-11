@@ -21,19 +21,19 @@ public class DetalleCompra {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id; 
+    private Integer id;
 
-    @ManyToOne 
-    @JoinColumn(name = "compra_id", nullable = false) 
+    @ManyToOne
+    @JoinColumn(name = "compra_id", nullable = false)
     private Compra compra;
 
-    @ManyToOne 
+    @ManyToOne
     @JoinColumn(name = "producto_id", nullable = false)
     private Perfume producto;
 
     @Column(name = "cantidad", nullable = false)
-    private Integer cantidad; 
+    private Integer cantidad;
 
     @Column(name = "precio_unitario", nullable = false)
-    private Double precioUnitario; 
+    private Double precioUnitario;
 }

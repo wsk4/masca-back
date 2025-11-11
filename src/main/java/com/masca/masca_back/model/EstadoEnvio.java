@@ -17,7 +17,7 @@ public class EstadoEnvio {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Integer id;
 
     @Column(name = "nombre", length = 50, nullable = false, unique = true)
     private String nombre;
