@@ -31,7 +31,7 @@ public class EstadoEnvioController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<EstadoEnvio> getEstadoById(@PathVariable Long id) {
+    public ResponseEntity<EstadoEnvio> getEstadoById(@PathVariable Integer id) {
         EstadoEnvio estado = estadoEnvioService.findById(id);
         if (estado == null) {
             return ResponseEntity.notFound().build();
@@ -46,7 +46,7 @@ public class EstadoEnvioController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<EstadoEnvio> updateEstado(@PathVariable Long id, @RequestBody EstadoEnvio estado) {
+    public ResponseEntity<EstadoEnvio> updateEstado(@PathVariable Integer id, @RequestBody EstadoEnvio estado) {
         estado.setId(id);
         EstadoEnvio updatedEstado = estadoEnvioService.save(estado);
         if (updatedEstado == null) {
@@ -56,7 +56,7 @@ public class EstadoEnvioController {
     }
 
     @PatchMapping("/{id}")
-    public ResponseEntity<EstadoEnvio> partialUpdateEstado(@PathVariable Long id, @RequestBody EstadoEnvio estado) {
+    public ResponseEntity<EstadoEnvio> partialUpdateEstado(@PathVariable Integer id, @RequestBody EstadoEnvio estado) {
         estado.setId(id);
         EstadoEnvio updatedEstado = estadoEnvioService.partialUpdate(estado);
         if (updatedEstado == null) {
@@ -66,7 +66,7 @@ public class EstadoEnvioController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteEstado(@PathVariable Long id) {
+    public ResponseEntity<Void> deleteEstado(@PathVariable Integer id) {
         estadoEnvioService.deleteById(id);
         return ResponseEntity.noContent().build();
     }

@@ -21,7 +21,7 @@ public class EstadoCompraController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<EstadoCompra> getEstadoById(@PathVariable Long id) {
+    public ResponseEntity<EstadoCompra> getEstadoById(@PathVariable Integer id) {
         EstadoCompra estado = estadoCompraService.findById(id);
         if (estado == null) {
             return ResponseEntity.notFound().build();
@@ -36,7 +36,7 @@ public class EstadoCompraController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<EstadoCompra> updateEstado(@PathVariable Long id, @RequestBody EstadoCompra estado) {
+    public ResponseEntity<EstadoCompra> updateEstado(@PathVariable Integer id, @RequestBody EstadoCompra estado) {
         estado.setId(id);
         EstadoCompra updatedEstado = estadoCompraService.save(estado);
         if (updatedEstado == null) {
@@ -46,7 +46,7 @@ public class EstadoCompraController {
     }
 
     @PatchMapping("/{id}")
-    public ResponseEntity<EstadoCompra> partialUpdateEstado(@PathVariable Long id, @RequestBody EstadoCompra estado) {
+    public ResponseEntity<EstadoCompra> partialUpdateEstado(@PathVariable Integer id, @RequestBody EstadoCompra estado) {
         estado.setId(id);
         EstadoCompra updatedEstado = estadoCompraService.partialUpdate(estado);
         if (updatedEstado == null) {
@@ -56,7 +56,7 @@ public class EstadoCompraController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteEstado(@PathVariable Long id) {
+    public ResponseEntity<Void> deleteEstado(@PathVariable Integer id) {
         estadoCompraService.deleteById(id);
         return ResponseEntity.noContent().build();
     }

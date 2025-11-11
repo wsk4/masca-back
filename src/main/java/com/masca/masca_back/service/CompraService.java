@@ -19,7 +19,7 @@ public class CompraService {
         return compraRepository.findAll();
     }
 
-    public Compra findById(Long id) {
+    public Compra findById(Integer id) {
         return compraRepository.findById(id).orElse(null);
     }
 
@@ -53,7 +53,7 @@ public class CompraService {
         return null;
     }
 
-    public void deleteById(Long id) {
+    public void deleteById(Integer id) {
         compraRepository.deleteById(id);
     }
 }

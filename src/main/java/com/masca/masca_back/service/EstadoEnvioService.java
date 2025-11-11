@@ -19,7 +19,7 @@ public class EstadoEnvioService {
         return estadoEnvioRepository.findAll();
     }
 
-    public EstadoEnvio findById(Long id) {
+    public EstadoEnvio findById(Integer id) {
         return estadoEnvioRepository.findById(id).orElse(null);
     }
 
@@ -38,7 +38,7 @@ public class EstadoEnvioService {
         return null;
     }
 
-    public void deleteById(Long id) {
+    public void deleteById(Integer id) {
         estadoEnvioRepository.deleteById(id);
     }
 }

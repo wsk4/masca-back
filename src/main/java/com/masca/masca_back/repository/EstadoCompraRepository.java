@@ -6,5 +6,5 @@ import org.springframework.stereotype.Repository;
 import com.masca.masca_back.model.EstadoCompra;
 
 @Repository
-public interface EstadoCompraRepository extends JpaRepository<EstadoCompra, Long> {
+public interface EstadoCompraRepository extends JpaRepository<EstadoCompra, Integer> {
 }

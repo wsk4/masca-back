@@ -6,5 +6,5 @@ import org.springframework.stereotype.Repository;
 import com.masca.masca_back.model.EstadoEnvio;
 
 @Repository
-public interface EstadoEnvioRepository extends JpaRepository<EstadoEnvio, Long> {
+public interface EstadoEnvioRepository extends JpaRepository<EstadoEnvio, Integer> {
 }

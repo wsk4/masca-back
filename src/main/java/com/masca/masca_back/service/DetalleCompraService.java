@@ -22,7 +22,7 @@ public class DetalleCompraService {
         return detalleCompraRepository.findAll();
     }
 
-    public DetalleCompra findById(Long id) {
+    public DetalleCompra findById(Integer id) {
         return detalleCompraRepository.findById(id).orElse(null);
     }
 
@@ -44,7 +44,7 @@ public class DetalleCompraService {
         return null;
     }
 
-    public void deleteById(Long id) {
+    public void deleteById(Integer id) {
         detalleCompraRepository.deleteById(id);
     }
 }

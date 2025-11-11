@@ -6,5 +6,5 @@ import org.springframework.stereotype.Repository;
 import com.masca.masca_back.model.DetalleCompra;
 
 @Repository
-public interface DetalleCompraRepository extends JpaRepository<DetalleCompra, Long> {
+public interface DetalleCompraRepository extends JpaRepository<DetalleCompra, Integer> {
 }

@@ -34,7 +34,7 @@ public class CompraController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Compra> getCompraById(@PathVariable Long id) {
+    public ResponseEntity<Compra> getCompraById(@PathVariable Integer id) {
         Compra compra = compraService.findById(id);
         if (compra == null) {
             return ResponseEntity.notFound().build();
@@ -50,7 +50,7 @@ public class CompraController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Compra> updateCompra(@PathVariable Long id, @RequestBody Compra compra) {
+    public ResponseEntity<Compra> updateCompra(@PathVariable Integer id, @RequestBody Compra compra) {
         compra.setId(id);
         Compra updatedCompra = compraService.save(compra);
 
@@ -61,7 +61,7 @@ public class CompraController {
     }
 
     @PatchMapping("/{id}")
-    public ResponseEntity<Compra> partialUpdateCompra(@PathVariable Long id, @RequestBody Compra compra) {
+    public ResponseEntity<Compra> partialUpdateCompra(@PathVariable Integer id, @RequestBody Compra compra) {
         Compra existingCompra = compraService.findById(id);
         if (existingCompra == null) {
             return ResponseEntity.notFound().build();
@@ -75,7 +75,7 @@ public class CompraController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteCompra(@PathVariable Long id) {
+    public ResponseEntity<Void> deleteCompra(@PathVariable Integer id) {
         compraService.deleteById(id);
         return ResponseEntity.noContent().build();
     }

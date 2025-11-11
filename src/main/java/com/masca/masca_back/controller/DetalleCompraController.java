@@ -24,7 +24,7 @@ public class DetalleCompraController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<DetalleCompra> getDetalleById(@PathVariable Long id) {
+    public ResponseEntity<DetalleCompra> getDetalleById(@PathVariable Integer id) {
         DetalleCompra detalle = detalleCompraService.findById(id);
         if (detalle == null) {
             return ResponseEntity.notFound().build();
@@ -39,7 +39,7 @@ public class DetalleCompraController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<DetalleCompra> updateDetalle(@PathVariable Long id, @RequestBody DetalleCompra detalle) {
+    public ResponseEntity<DetalleCompra> updateDetalle(@PathVariable Integer id, @RequestBody DetalleCompra detalle) {
         detalle.setId(id);
         DetalleCompra updatedDetalle = detalleCompraService.save(detalle);
         if (updatedDetalle == null) {
@@ -49,7 +49,7 @@ public class DetalleCompraController {
     }
 
     @PatchMapping("/{id}")
-    public ResponseEntity<DetalleCompra> partialUpdateDetalle(@PathVariable Long id, @RequestBody DetalleCompra detalle) {
+    public ResponseEntity<DetalleCompra> partialUpdateDetalle(@PathVariable Integer id, @RequestBody DetalleCompra detalle) {
         detalle.setId(id);
         DetalleCompra updatedDetalle = detalleCompraService.partialUpdate(detalle);
         if (updatedDetalle == null) {
@@ -59,7 +59,7 @@ public class DetalleCompraController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteDetalle(@PathVariable Long id) {
+    public ResponseEntity<Void> deleteDetalle(@PathVariable Integer id) {
         detalleCompraService.deleteById(id);
         return ResponseEntity.noContent().build();
     }

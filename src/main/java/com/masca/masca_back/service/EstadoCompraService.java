@@ -22,7 +22,7 @@ public class EstadoCompraService {
         return estadoCompraRepository.findAll();
     }
 
-    public EstadoCompra findById(Long id) {
+    public EstadoCompra findById(Integer id) {
         return estadoCompraRepository.findById(id).orElse(null);
     }
 
@@ -41,7 +41,7 @@ public class EstadoCompraService {
         return null;
     }
 
-    public void deleteById(Long id) {
+    public void deleteById(Integer id) {
         estadoCompraRepository.deleteById(id);
     }
 }
