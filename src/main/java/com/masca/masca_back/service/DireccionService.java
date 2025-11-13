@@ -48,9 +48,7 @@ public class DireccionService {
             if (direccion.getPais() != null) {
                 existing.setPais(direccion.getPais());
             }
-            if (direccion.getCodigoPostal() != null) {
-                existing.setCodigoPostal(direccion.getCodigoPostal());
-            }
+
             return direccionRepository.save(existing);
         }
         return null;

@@ -34,6 +34,4 @@ public class Direccion {
     @Column(length = 50)
     private String pais;
 
-    @Column(length = 10)
-    private String codigoPostal;
 }
