@@ -39,9 +39,16 @@ public class DireccionService {
             if (direccion.getNumero() != null) {
                 existing.setNumero(direccion.getNumero());
             }
+            if (direccion.getComuna() != null) {
+                existing.setComuna(direccion.getComuna());
+            }
+            if (direccion.getUsuario() != null) {
+                existing.setUsuario(direccion.getUsuario());
+            }
 
             return direccionRepository.save(existing);
         }
+
         return null;
     }
 
