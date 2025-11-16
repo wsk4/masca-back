@@ -5,8 +5,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -15,24 +14,17 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-public class Direccion {
+public class Comuna {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @ManyToOne
-    @JoinColumn(name = "usuario_id", nullable = false)
-    private Usuario usuario;
-
-    @Column(length = 100, nullable = false)
-    private String calle;
-
-    @Column(length = 10)
-    private String numero;
+    @Column(length = 50, nullable = false)
+    private String nombre;
 
     @ManyToOne
-    @JoinColumn(name = "comuna_id", nullable = false)
-    private Comuna comuna;
+    @JoinColumn(name = "region_id", nullable = false)
+    private Region region;
 
 }
