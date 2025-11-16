@@ -5,6 +5,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -19,19 +21,16 @@ public class Direccion {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    @ManyToOne
+    @JoinColumn(name = "usuario_id", nullable = false)
+    private Usuario usuario;
+
     @Column(length = 100, nullable = false)
     private String calle;
 
     @Column(length = 10)
     private String numero;
 
-    @Column(length = 50)
-    private String ciudad;
-
-    @Column(length = 50)
-    private String provincia;
-
-    @Column(length = 50)
-    private String pais;
-
+    //ahcer tabla de comuna y de region, comuna recibe un manytoone de region y direccion recibe 
+    //manytoone de comuna
 }
