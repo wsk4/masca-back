@@ -19,7 +19,7 @@ public class Region {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(name = "region", length = 50, nullable = false)
+    @Column(name = "NombreRegion", length = 50, nullable = false)
     private String nombre;
 
 }
