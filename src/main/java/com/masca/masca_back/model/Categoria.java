@@ -19,6 +19,6 @@ public class Categoria {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(length = 50, nullable = false)
+    @Column(name = "Categoria_name", length = 50, nullable = false)
     private String nombre;
 }

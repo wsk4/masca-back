@@ -27,11 +27,14 @@ public class Perfume {
     @Column(name = "descripcionPerfume", length = 255)
     private String descripcion;
 
-    @Column(nullable = false)
+    @Column(name = "precio", nullable = false)
     private Double precio;
 
-    @Column(nullable = false)
+    @Column(name = "stock", nullable = false)
     private Integer stock;
+
+    @Column(name = "urlPerfume", nullable = false)
+    private String url;
 
     @ManyToOne
     @JoinColumn(name = "codigo_marca")

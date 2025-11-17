@@ -72,4 +72,10 @@ public class DireccionController {
         direccionService.deleteById(id);
         return ResponseEntity.noContent().build();
     }
+
+    @GetMapping("/region/{regionId}")
+    public ResponseEntity<List<Direccion>> getDireccionesPorRegion(@PathVariable Integer regionId) {
+        List<Direccion> direcciones = direccionService.findByRegionId(regionId);
+        return direcciones.isEmpty() ? ResponseEntity.noContent().build() : ResponseEntity.ok(direcciones);
+    }
 }

@@ -25,10 +25,10 @@ public class Direccion {
     @JoinColumn(name = "usuario_id", nullable = false)
     private Usuario usuario;
 
-    @Column(length = 100, nullable = false)
+    @Column(name = "calle", length = 100, nullable = false)
     private String calle;
 
-    @Column(length = 10)
+    @Column(name = "numero", length = 10)
     private String numero;
 
     @ManyToOne

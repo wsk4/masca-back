@@ -12,7 +12,6 @@ import jakarta.transaction.Transactional;
 
 @Service
 @Transactional
-@SuppressWarnings("null")
 public class RolService {
 
     @Autowired
@@ -22,26 +21,13 @@ public class RolService {
         return rolRepository.findAll();
     }
 
+    @SuppressWarnings("null")
     public Rol findById(Integer id) {
         return rolRepository.findById(id).orElse(null);
     }
 
+    @SuppressWarnings("null")
     public Rol save(Rol rol) {
         return rolRepository.save(rol);
-    }
-
-    public Rol partialUpdate(Rol rol) {
-        Rol existing = rolRepository.findById(rol.getId()).orElse(null);
-        if (existing != null) {
-            if (rol.getNombre() != null) {
-                existing.setNombre(rol.getNombre());
-            }
-            return rolRepository.save(existing);
-        }
-        return null;
-    }
-
-    public void deleteById(Integer id) {
-        rolRepository.deleteById(id);
-    }
+    } 
 }

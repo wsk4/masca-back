@@ -55,4 +55,8 @@ public class DireccionService {
     public void deleteById(Integer id) {
         direccionRepository.deleteById(id);
     }
+
+    public List<Direccion> findByRegionId(Integer regionId) {
+        return direccionRepository.findByRegionId(regionId);
+    }
 }

@@ -21,10 +21,10 @@ public class Comuna {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(length = 50, nullable = false)
+    @Column(name = "NombreComuna", length = 50, nullable = false)
     private String nombre;
 
-    @Column(length = 50, nullable = false)
+    @Column(name = "CodigoPostal", length = 50, nullable = false)
     private String Codigo_postal;
 
     @ManyToOne
