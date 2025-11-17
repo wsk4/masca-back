@@ -22,7 +22,7 @@ public class Direccion {
     private Integer id;
 
     @ManyToOne
-    @JoinColumn(name = "usuario_id", nullable = false)
+    @JoinColumn(name = "usuario_id")
     private Usuario usuario;
 
     @Column(name = "calle", length = 100, nullable = false)
@@ -32,7 +32,7 @@ public class Direccion {
     private String numero;
 
     @ManyToOne
-    @JoinColumn(name = "comuna_id", nullable = false)
+    @JoinColumn(name = "comuna_id")
     private Comuna comuna;
 
 }

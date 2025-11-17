@@ -74,8 +74,8 @@ public class DireccionController {
     }
 
     @GetMapping("/region/{regionId}")
-    public ResponseEntity<List<Direccion>> getDireccionesPorRegion(@PathVariable Integer regionId) {
-        List<Direccion> direcciones = direccionService.findByRegionId(regionId);
+    public ResponseEntity<List<Direccion>> getDireccionesPorRegion(@PathVariable Integer comuna_id) {
+        List<Direccion> direcciones = direccionService.findByComunaId(comuna_id);
         return direcciones.isEmpty() ? ResponseEntity.noContent().build() : ResponseEntity.ok(direcciones);
     }
 }

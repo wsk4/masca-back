@@ -10,5 +10,5 @@ import com.masca.masca_back.model.Direccion;
 @Repository
 public interface DireccionRepository extends JpaRepository<Direccion, Integer> {
 
-    List<Direccion> findByRegionId(Integer regionId);
+    List<Direccion> findByComunaId(Integer comuna_Id);
 }
