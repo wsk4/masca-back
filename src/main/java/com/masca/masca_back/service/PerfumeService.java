@@ -18,6 +18,9 @@ public class PerfumeService {
     @Autowired
     private PerfumeRepository perfumeRepository;
 
+    @Autowired
+    private MarcaService marcaService;
+
     public List<Perfume> findAll() {
         return perfumeRepository.findAll();
     }
@@ -54,6 +57,7 @@ public class PerfumeService {
     }
 
     public void deleteById(Integer id) {
+        marcaService.deleteByMarcaId(id);
         perfumeRepository.deleteById(id);
     }
 }
