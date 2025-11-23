@@ -25,7 +25,7 @@ public class RegionController {
     private RegionService regionService;
 
     @GetMapping
-    public ResponseEntity<List<Region>> getAll() {
+    public ResponseEntity<List<Region>> getAllRegiones() {
         List<Region> regiones = regionService.findAll();
         if (regiones.isEmpty()) {
             return ResponseEntity.noContent().build();
@@ -34,7 +34,7 @@ public class RegionController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Region> getById(@PathVariable Integer id) {
+    public ResponseEntity<Region> getRegionById(@PathVariable Integer id) {
         Region region = regionService.findById(id);
         if (region == null) {
             return ResponseEntity.notFound().build();
@@ -43,27 +43,25 @@ public class RegionController {
     }
 
     @PostMapping
-    public ResponseEntity<Region> create(@RequestBody Region region) {
-        Region created = regionService.save(region);
-        return ResponseEntity.status(201).body(created);
+    public ResponseEntity<Region> createRegion(@RequestBody Region region) {
+        Region createdRegion = regionService.save(region);
+        return ResponseEntity.status(201).body(createdRegion);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Region> update(
-            @PathVariable Integer id,
-            @RequestBody Region region
-    ) {
+    public ResponseEntity<Region> updateRegion(@PathVariable Integer id, @RequestBody Region region) {
         region.setId(id);
-        Region updated = regionService.save(region);
-        return ResponseEntity.ok(updated);
+        Region updatedRegion = regionService.save(region);
+        if (updatedRegion == null) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(updatedRegion);
     }
 
     @PatchMapping("/{id}")
-    public ResponseEntity<Region> patch(
-            @PathVariable Integer id,
-            @RequestBody Region region
-    ) {
-        Region updated = regionService.updatePartial(id, region);
+    public ResponseEntity<Region> partialUpdateRegion(@PathVariable Integer id, @RequestBody Region region) {
+        region.setId(id); // Aseguramos que el ID venga del path
+        Region updated = regionService.partialUpdate(region);
         if (updated == null) {
             return ResponseEntity.notFound().build();
         }
@@ -71,7 +69,7 @@ public class RegionController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable Integer id) {
+    public ResponseEntity<Void> deleteRegion(@PathVariable Integer id) {
         regionService.deleteById(id);
         return ResponseEntity.noContent().build();
     }

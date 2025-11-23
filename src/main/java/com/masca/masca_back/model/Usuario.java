@@ -33,7 +33,7 @@ public class Usuario {
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String contra;
 
-    @Column(name = " telefono", length = 20)
+    @Column(name = "telefono", length = 20)
     private String telefono;
 
     @ManyToOne

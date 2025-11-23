@@ -1,19 +1,9 @@
 package com.masca.masca_back.controller;
 
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PatchMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
+import org.springframework.web.bind.annotation.*;
 import com.masca.masca_back.model.Direccion;
 import com.masca.masca_back.service.DireccionService;
 
@@ -60,22 +50,17 @@ public class DireccionController {
 
     @PatchMapping("/{id}")
     public ResponseEntity<Direccion> partialUpdateDireccion(@PathVariable Integer id, @RequestBody Direccion direccion) {
-        Direccion existingDireccion = direccionService.findById(id);
-        if (existingDireccion == null) {
+        direccion.setId(id);
+        Direccion updated = direccionService.partialUpdate(direccion);
+        if (updated == null) {
             return ResponseEntity.notFound().build();
         }
-        return ResponseEntity.ok(direccionService.partialUpdate(direccion));
+        return ResponseEntity.ok(updated);
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteDireccion(@PathVariable Integer id) {
         direccionService.deleteById(id);
         return ResponseEntity.noContent().build();
-    }
-
-    @GetMapping("/region/{regionId}")
-    public ResponseEntity<List<Direccion>> getDireccionesPorRegion(@PathVariable Integer comuna_id) {
-        List<Direccion> direcciones = direccionService.findByComunaId(comuna_id);
-        return direcciones.isEmpty() ? ResponseEntity.noContent().build() : ResponseEntity.ok(direcciones);
     }
 }

@@ -12,6 +12,7 @@ import jakarta.transaction.Transactional;
 
 @Service
 @Transactional
+@SuppressWarnings("null")
 public class RegionService {
 
     @Autowired
@@ -29,16 +30,14 @@ public class RegionService {
         return regionRepository.save(region);
     }
 
-    public Region updatePartial(Integer id, Region region) {
-        Region existing = regionRepository.findById(id).orElse(null);
-
+    public Region partialUpdate(Region region) {
+        Region existing = regionRepository.findById(region.getId()).orElse(null);
         if (existing != null) {
             if (region.getNombre() != null) {
                 existing.setNombre(region.getNombre());
             }
             return regionRepository.save(existing);
         }
-
         return null;
     }
 

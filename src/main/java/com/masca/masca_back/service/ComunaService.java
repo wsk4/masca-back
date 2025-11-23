@@ -31,26 +31,19 @@ public class ComunaService {
     }
 
     public Comuna partialUpdate(Comuna comuna) {
-
         Comuna existing = comunaRepository.findById(comuna.getId()).orElse(null);
-
         if (existing != null) {
-
             if (comuna.getNombre() != null) {
                 existing.setNombre(comuna.getNombre());
             }
-
             if (comuna.getCodigoPostal() != null) {
                 existing.setCodigoPostal(comuna.getCodigoPostal());
             }
-
             if (comuna.getRegion() != null) {
                 existing.setRegion(comuna.getRegion());
             }
-
             return comunaRepository.save(existing);
         }
-
         return null;
     }
 

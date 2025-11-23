@@ -21,10 +21,6 @@ public class Direccion {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @ManyToOne
-    @JoinColumn(name = "usuario_id")
-    private Usuario usuario;
-
     @Column(name = "calle", length = 100, nullable = false)
     private String calle;
 

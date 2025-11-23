@@ -42,21 +42,12 @@ public class DireccionService {
             if (direccion.getComuna() != null) {
                 existing.setComuna(direccion.getComuna());
             }
-            if (direccion.getUsuario() != null) {
-                existing.setUsuario(direccion.getUsuario());
-            }
-
             return direccionRepository.save(existing);
         }
-
         return null;
     }
 
     public void deleteById(Integer id) {
         direccionRepository.deleteById(id);
-    }
-
-    public List<Direccion> findByComunaId(Integer comuna_id) {
-        return direccionRepository.findByComunaId(comuna_id);
     }
 }
