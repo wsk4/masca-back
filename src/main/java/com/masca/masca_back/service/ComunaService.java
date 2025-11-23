@@ -36,8 +36,8 @@ public class ComunaService {
             if (Comuna.getNombre() != null) {
                 existing.setNombre(Comuna.getNombre());
             }
-            if (Comuna.getCodigo_postal() != null) {
-                existing.setCodigo_postal(Comuna.getCodigo_postal());
+            if (Comuna.getCodigoPostal() != null) {
+                existing.setCodigoPostal(Comuna.getCodigoPostal());
             }
             if (Comuna.getRegion() != null) {
                 existing.setRegion(Comuna.getRegion());
