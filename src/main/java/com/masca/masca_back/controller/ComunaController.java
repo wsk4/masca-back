@@ -52,9 +52,6 @@ public class ComunaController {
     public ResponseEntity<Comuna> updateComuna(@PathVariable Integer id, @RequestBody Comuna comuna) {
         comuna.setId(id);
         Comuna updatedComuna = comunaService.save(comuna);
-        if (updatedComuna == null) {
-            return ResponseEntity.notFound().build();
-        }
         return ResponseEntity.ok(updatedComuna);
     }
 
@@ -64,7 +61,9 @@ public class ComunaController {
         if (existingComuna == null) {
             return ResponseEntity.notFound().build();
         }
-        return ResponseEntity.ok(comunaService.partialUpdate(comuna));
+        comuna.setId(id);
+        Comuna updated = comunaService.partialUpdate(comuna);
+        return ResponseEntity.ok(updated);
     }
 
     @DeleteMapping("/{id}")

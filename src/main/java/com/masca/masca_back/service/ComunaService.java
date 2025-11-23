@@ -26,25 +26,31 @@ public class ComunaService {
         return comunaRepository.findById(id).orElse(null);
     }
 
-    public Comuna save(Comuna Comuna) {
-        return comunaRepository.save(Comuna);
+    public Comuna save(Comuna comuna) {
+        return comunaRepository.save(comuna);
     }
 
-    public Comuna partialUpdate(Comuna Comuna) {
-        Comuna existing = comunaRepository.findById(Comuna.getId()).orElse(null);
+    public Comuna partialUpdate(Comuna comuna) {
+
+        Comuna existing = comunaRepository.findById(comuna.getId()).orElse(null);
+
         if (existing != null) {
-            if (Comuna.getNombre() != null) {
-                existing.setNombre(Comuna.getNombre());
+
+            if (comuna.getNombre() != null) {
+                existing.setNombre(comuna.getNombre());
             }
-            if (Comuna.getCodigoPostal() != null) {
-                existing.setCodigoPostal(Comuna.getCodigoPostal());
+
+            if (comuna.getCodigoPostal() != null) {
+                existing.setCodigoPostal(comuna.getCodigoPostal());
             }
-            if (Comuna.getRegion() != null) {
-                existing.setRegion(Comuna.getRegion());
+
+            if (comuna.getRegion() != null) {
+                existing.setRegion(comuna.getRegion());
             }
 
             return comunaRepository.save(existing);
         }
+
         return null;
     }
 
