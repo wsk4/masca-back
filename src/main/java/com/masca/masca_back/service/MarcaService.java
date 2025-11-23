@@ -44,15 +44,14 @@ public class MarcaService {
     }
 
     public void deleteById(Integer id) {
+        // Optimizado: Solo busca y elimina los perfumes de ESTA marca
+        List<Perfume> perfumes = perfumeRepository.findByMarcaId(id);
 
-        List<Perfume> perfumes = perfumeRepository.findAll();
-        for (Perfume perfume : perfumes) {
-            if (perfume.getMarca() != null && perfume.getMarca().getId().equals(id)) {
-                perfumeRepository.deleteById(perfume.getId());
-            }
+        if (!perfumes.isEmpty()) {
+            perfumeRepository.deleteAll(perfumes);
         }
 
+        // Ahora elimina la marca
         marcaRepository.deleteById(id);
     }
-
 }
