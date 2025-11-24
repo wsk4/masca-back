@@ -5,11 +5,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import java.util.List;
 import com.masca.masca_back.model.Compra;
-import com.masca.masca_back.model.DetalleCompra;
-import com.masca.masca_back.model.Perfume;
 import com.masca.masca_back.repository.CompraRepository;
-import com.masca.masca_back.repository.DetalleCompraRepository;
-import com.masca.masca_back.repository.PerfumeRepository;
 
 @Service
 @Transactional
