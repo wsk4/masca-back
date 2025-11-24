@@ -60,6 +60,7 @@ public class MarcaController {
 
     @PatchMapping("/{id}")
     public ResponseEntity<Marca> partialUpdateMarca(@PathVariable Integer id, @RequestBody Marca marca) {
+        marca.setId(id);
         Marca existingMarca = marcaService.findById(id);
         if (existingMarca == null) {
             return ResponseEntity.notFound().build();

@@ -60,6 +60,7 @@ public class PerfumeController {
 
     @PatchMapping("/{id}")
     public ResponseEntity<Perfume> partialUpdatePerfume(@PathVariable Integer id, @RequestBody Perfume perfume) {
+        perfume.setId(id);
         Perfume existingPerfume = perfumeService.findById(id);
         if (existingPerfume == null) {
             return ResponseEntity.notFound().build();

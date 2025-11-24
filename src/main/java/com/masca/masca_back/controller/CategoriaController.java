@@ -60,6 +60,7 @@ public class CategoriaController {
 
     @PatchMapping("/{id}")
     public ResponseEntity<Categoria> partialUpdateCategoria(@PathVariable Integer id, @RequestBody Categoria categoria) {
+        categoria.setId(id);
         Categoria existingCategoria = categoriaService.findById(id);
         if (existingCategoria == null) {
             return ResponseEntity.notFound().build();

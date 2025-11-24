@@ -60,6 +60,7 @@ public class PerfumeCategoriaController {
 
     @PatchMapping("/{id}")
     public ResponseEntity<PerfumeCategoria> partialUpdatePerfumeCategoria(@PathVariable Integer id, @RequestBody PerfumeCategoria relacion) {
+        relacion.setId(id);
         PerfumeCategoria existingRelacion = perfumeCategoriaService.findById(id);
         if (existingRelacion == null) {
             return ResponseEntity.notFound().build();
