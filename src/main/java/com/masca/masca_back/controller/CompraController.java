@@ -62,15 +62,12 @@ public class CompraController {
 
     @PatchMapping("/{id}")
     public ResponseEntity<Compra> partialUpdateCompra(@PathVariable Integer id, @RequestBody Compra compra) {
+        compra.setId(id);
         Compra existingCompra = compraService.findById(id);
         if (existingCompra == null) {
             return ResponseEntity.notFound().build();
         }
-
-        compra.setId(id);
-
         Compra updatedCompra = compraService.partialUpdate(compra);
-
         return ResponseEntity.ok(updatedCompra);
     }
 

@@ -60,8 +60,8 @@ public class UsuarioController {
 
     @PatchMapping("/{id}")
     public ResponseEntity<Usuario> partialUpdateUsuario(@PathVariable Integer id, @RequestBody Usuario usuario) {
-        Usuario existingUsuario = usuarioService.findById(id);
         usuario.setId(id);
+        Usuario existingUsuario = usuarioService.findById(id);
         if (existingUsuario == null) {
             return ResponseEntity.notFound().build();
         }
