@@ -18,10 +18,6 @@ public class CompraService {
 
     @Autowired
     private CompraRepository compraRepository;
-    @Autowired
-    private PerfumeRepository perfumeRepository;
-    @Autowired 
-    private DetalleCompraRepository detalleCompraRepository;
 
     public List<Compra> findAll() {
         return compraRepository.findAll();
@@ -32,34 +28,8 @@ public class CompraService {
     }
 
     public Compra save(Compra compra) {
-    Compra savedCompra = compraRepository.save(compra);
-
-    if (compra.getDetalleCompras() != null) {
-        for (DetalleCompra detalle : compra.getDetalleCompras()) {
-            detalle.setCompra(savedCompra);
-
-            // === COMIENZO DE LA CORRECCIÓN ===
-            // 1. Obtener el ID del perfume enviado desde el frontend
-            if (detalle.getPerfume() == null || detalle.getPerfume().getId() == null) {
-                // Manejar error si falta el ID
-                throw new IllegalArgumentException("El ID del perfume es requerido en el detalle de la compra.");
-            }
-            Long perfumeId = detalle.getPerfume().getId();
-
-            // 2. Cargar la entidad Perfume completa desde la base de datos
-            Perfume perfume = perfumeRepository.findById(perfumeId)
-                .orElseThrow(() -> new RuntimeException("Perfume no encontrado con ID: " + perfumeId));
-
-            // 3. Establecer la entidad Perfume gestionada por JPA en el detalle
-            detalle.setPerfume(perfume);
-            // === FIN DE LA CORRECCIÓN ===
-
-            // 4. Guardar el detalle de la compra
-            detalleCompraRepository.save(detalle);
-        }
+        return compraRepository.save(compra);
     }
-    return savedCompra;
-}
 
     public Compra partialUpdate(Compra compra) {
         Compra existing = compraRepository.findById(compra.getId()).orElse(null);
