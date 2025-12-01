@@ -1,12 +1,15 @@
 package com.masca.masca_back.service;
 
 import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import com.masca.masca_back.model.Marca;
 import com.masca.masca_back.model.Perfume;
 import com.masca.masca_back.repository.MarcaRepository;
 import com.masca.masca_back.repository.PerfumeRepository;
+
 import jakarta.transaction.Transactional;
 
 @Service
