@@ -29,7 +29,7 @@ public class Usuario {
     @Column(name = "correoUsuario", length = 50, nullable = false)
     private String correo;
 
-    @Column(name = "contraUsuario", length = 100, nullable = false)
+    @Column(name = "contraUsuario", length = 25, nullable = false)
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String contra;
 
