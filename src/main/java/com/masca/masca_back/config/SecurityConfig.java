@@ -21,21 +21,29 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        return http
-                .csrf(csrf -> csrf.disable())
-                .authorizeHttpRequests(authRequest
-                        -> authRequest
-                        // Rutas públicas (Login y Registro)
-                        .requestMatchers("/api/auth/**").permitAll()
-                        // Rutas públicas de Swagger (Opcional, útil para desarrollo)
-                        .requestMatchers("/doc/**","/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html").permitAll()
-                        // Todo lo demás requiere token
-                        .anyRequest().authenticated()
-                )
-                .sessionManagement(sessionManager
-                        -> sessionManager.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                .authenticationProvider(authProvider)
-                .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
-                .build();
+        http
+            .csrf(csrf -> csrf.disable())
+            .authorizeHttpRequests(authRequest ->
+                authRequest
+                    // 1. AUTENTICACIÓN: Permitir login y registro
+                    .requestMatchers("/api/auth/**").permitAll()
+                    
+                    // 2. SWAGGER / OPENAPI: Permitir documentación sin token
+                    .requestMatchers(
+                        "/doc/**",                // Tu ruta personalizada
+                        "/v3/api-docs/**",        // JSON de la API
+                        "/swagger-ui/**",         // Recursos estáticos de Swagger
+                        "/swagger-ui.html"        // Entrypoint por defecto
+                    ).permitAll()
+                    
+                    // 3. RESTO DE LA API: Requiere Token
+                    .anyRequest().authenticated()
+            )
+            .sessionManagement(sessionManager ->
+                sessionManager.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+            .authenticationProvider(authProvider)
+            .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
+
+        return http.build();
     }
 }
