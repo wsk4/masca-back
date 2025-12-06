@@ -28,7 +28,7 @@ public class SecurityConfig {
                         // Rutas públicas (Login y Registro)
                         .requestMatchers("/api/auth/**").permitAll()
                         // Rutas públicas de Swagger (Opcional, útil para desarrollo)
-                        .requestMatchers("/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html").permitAll()
+                        .requestMatchers("/doc/**","/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html").permitAll()
                         // Todo lo demás requiere token
                         .anyRequest().authenticated()
                 )
