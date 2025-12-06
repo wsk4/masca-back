@@ -27,6 +27,7 @@ public class SecurityConfig {
                 .csrf(csrf -> csrf.disable()) // <--- ¡VITAL! Sin esto, el POST a /login dará 403
                 .authorizeHttpRequests(authRequest
                         -> authRequest
+                        .requestMatchers("/api/health").permitAll()
                         .requestMatchers("/api/auth/**").permitAll() // Login libre
                         .requestMatchers("/doc/**", "/v3/api-docs/**", "/swagger-ui/**").permitAll() // Swagger libre
                         .anyRequest().authenticated() // El resto protegido
