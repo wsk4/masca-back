@@ -1,7 +1,5 @@
 package com.masca.masca_back.config;
 
-import com.masca.masca_back.security.JwtAuthenticationFilter;
-import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationProvider;
@@ -10,6 +8,10 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+
+import com.masca.masca_back.security.JwtAuthenticationFilter;
+
+import lombok.RequiredArgsConstructor;
 
 @Configuration
 @EnableWebSecurity
@@ -22,27 +24,16 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-            .csrf(csrf -> csrf.disable())
-            .authorizeHttpRequests(authRequest ->
-                authRequest
-                    // 1. AUTENTICACIÓN: Permitir login y registro
-                    .requestMatchers("/api/auth/**").permitAll()
-                    
-                    // 2. SWAGGER / OPENAPI: Permitir documentación sin token
-                    .requestMatchers(
-                        "/doc/**",                // Tu ruta personalizada
-                        "/v3/api-docs/**",        // JSON de la API
-                        "/swagger-ui/**",         // Recursos estáticos de Swagger
-                        "/swagger-ui.html"        // Entrypoint por defecto
-                    ).permitAll()
-                    
-                    // 3. RESTO DE LA API: Requiere Token
-                    .anyRequest().authenticated()
-            )
-            .sessionManagement(sessionManager ->
-                sessionManager.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-            .authenticationProvider(authProvider)
-            .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
+                .csrf(csrf -> csrf.disable()) // <--- ¡VITAL! Sin esto, el POST a /login dará 403
+                .authorizeHttpRequests(authRequest
+                        -> authRequest
+                        .requestMatchers("/api/auth/**").permitAll() // Login libre
+                        .requestMatchers("/doc/**", "/v3/api-docs/**", "/swagger-ui/**").permitAll() // Swagger libre
+                        .anyRequest().authenticated() // El resto protegido
+                )
+                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                .authenticationProvider(authProvider)
+                .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
     }
