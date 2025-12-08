@@ -19,7 +19,7 @@ public class UsuarioService {
     private UsuarioRepository usuarioRepository;
 
     @Autowired
-    private PasswordEncoder passwordEncoder; // Inyectar el encoder
+    private PasswordEncoder passwordEncoder;
 
     public List<Usuario> findAll() {
         return usuarioRepository.findAll();
@@ -30,8 +30,8 @@ public class UsuarioService {
     }
 
     public Usuario save(Usuario usuario) {
-        // Encriptar contraseña al crear o editar si viene en el body
-        if (usuario.getContra() != null && !usuario.getContra().isBlank()) {
+        // Si viene una contraseña, encríptala antes de guardar
+        if (usuario.getContra() != null && !usuario.getContra().isEmpty()) {
             usuario.setContra(passwordEncoder.encode(usuario.getContra()));
         }
         return usuarioRepository.save(usuario);
