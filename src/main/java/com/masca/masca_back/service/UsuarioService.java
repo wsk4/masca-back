@@ -3,6 +3,7 @@ package com.masca.masca_back.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.masca.masca_back.model.Usuario;
@@ -12,11 +13,13 @@ import jakarta.transaction.Transactional;
 
 @Service
 @Transactional
-@SuppressWarnings("null")
 public class UsuarioService {
 
     @Autowired
     private UsuarioRepository usuarioRepository;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder; // Inyectar el encoder
 
     public List<Usuario> findAll() {
         return usuarioRepository.findAll();
@@ -27,6 +30,10 @@ public class UsuarioService {
     }
 
     public Usuario save(Usuario usuario) {
+        // Encriptar contraseña al crear o editar si viene en el body
+        if (usuario.getContra() != null && !usuario.getContra().isBlank()) {
+            usuario.setContra(passwordEncoder.encode(usuario.getContra()));
+        }
         return usuarioRepository.save(usuario);
     }
 
@@ -39,9 +46,12 @@ public class UsuarioService {
             if (usuario.getCorreo() != null) {
                 existing.setCorreo(usuario.getCorreo());
             }
-            if (usuario.getContra() != null) {
-                existing.setContra(usuario.getContra());
+
+            // Encriptar también en el Patch si se actualiza la contraseña
+            if (usuario.getContra() != null && !usuario.getContra().isBlank()) {
+                existing.setContra(passwordEncoder.encode(usuario.getContra()));
             }
+
             if (usuario.getTelefono() != null) {
                 existing.setTelefono(usuario.getTelefono());
             }
@@ -51,6 +61,7 @@ public class UsuarioService {
             if (usuario.getDireccion() != null) {
                 existing.setDireccion(usuario.getDireccion());
             }
+
             return usuarioRepository.save(existing);
         }
         return null;
