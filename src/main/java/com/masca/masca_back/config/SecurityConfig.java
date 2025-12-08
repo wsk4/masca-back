@@ -27,10 +27,9 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                 // Permitir login
                 .requestMatchers("/api/auth/**").permitAll()
-                
+                .requestMatchers("/error").permitAll()
                 // Permitir Swagger (HTML y recursos internos)
                 .requestMatchers("/doc/**", "/swagger-ui/**", "/v3/api-docs/**").permitAll()
-                
                 // Cualquier otra cosa requiere autenticación
                 .anyRequest().authenticated()
                 )
