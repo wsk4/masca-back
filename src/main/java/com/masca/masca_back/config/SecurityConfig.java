@@ -25,8 +25,14 @@ public class SecurityConfig {
         http
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
-                .requestMatchers("/api/auth/**", "/doc/**", "/v3/api-docs/**").permitAll() // Login y Swagger públicos
-                .anyRequest().authenticated() // El resto requiere Token
+                // Permitir login
+                .requestMatchers("/api/auth/**").permitAll()
+                
+                // Permitir Swagger (HTML y recursos internos)
+                .requestMatchers("/doc/**", "/swagger-ui/**", "/v3/api-docs/**").permitAll()
+                
+                // Cualquier otra cosa requiere autenticación
+                .anyRequest().authenticated()
                 )
                 .sessionManagement(session -> session
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS) // No crear sesión de servidor
