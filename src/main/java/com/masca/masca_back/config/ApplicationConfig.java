@@ -22,14 +22,14 @@ public class ApplicationConfig {
 
     @Bean
     public UserDetailsService userDetailsService() {
-        return username -> usuarioRepository.findByNombre(username) // O findByCorreo
+        // CORRECCIÓN: Usar findByCorreo aquí también
+        return username -> usuarioRepository.findByCorreo(username)
                 .map(usuario -> org.springframework.security.core.userdetails.User.builder()
-                .username(usuario.getNombre())
-                .password(usuario.getContra()) // Importante: debe estar encriptada
-                // Aquí asignas roles. Si tu Rol es complejo, simplifícalo a string
+                .username(usuario.getCorreo()) // El username de seguridad es el correo
+                .password(usuario.getContra())
                 .roles(usuario.getRol() != null ? usuario.getRol().getNombre() : "USER")
                 .build())
-                .orElseThrow(() -> new UsernameNotFoundException("Usuario no encontrado"));
+                .orElseThrow(() -> new UsernameNotFoundException("Usuario no encontrado con correo: " + username));
     }
 
     @Bean

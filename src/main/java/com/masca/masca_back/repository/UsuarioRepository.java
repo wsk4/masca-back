@@ -11,4 +11,5 @@ import com.masca.masca_back.model.Usuario;
 public interface UsuarioRepository extends JpaRepository<Usuario, Integer> {
 
     Optional<Usuario> findByNombre(String nombre);
+    Optional<Usuario> findByCorreo(String correo);
 }

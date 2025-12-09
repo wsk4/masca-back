@@ -1,11 +1,16 @@
 package com.masca.masca_back.controller;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.masca.masca_back.config.JwtService;
 import com.masca.masca_back.model.Usuario;
+import com.masca.masca_back.repository.UsuarioRepository;
 import com.masca.masca_back.service.UsuarioService;
 
 @RestController
@@ -23,7 +29,10 @@ public class AuthController {
     private AuthenticationManager authenticationManager;
 
     @Autowired
-    private UsuarioService usuarioService; // Inyectamos el servicio de usuarios
+    private UsuarioService usuarioService;
+
+    @Autowired
+    private UsuarioRepository usuarioRepository;
 
     @Autowired
     private UserDetailsService userDetailsService;
@@ -31,41 +40,50 @@ public class AuthController {
     @Autowired
     private JwtService jwtService;
 
-    // --- Endpoint para LOGIN (Ya lo tenías) ---
     @PostMapping("/login")
     public ResponseEntity<AuthResponse> login(@RequestBody LoginRequest request) {
+        // Autenticamos usando el correo (request.getUsername() trae el correo del front)
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(request.getUsername(), request.getPassword())
         );
+        // Cargamos usuario por correo
         UserDetails user = userDetailsService.loadUserByUsername(request.getUsername());
         String token = jwtService.generateToken(user);
         return ResponseEntity.ok(new AuthResponse(token));
     }
 
-    // --- NUEVO Endpoint para REGISTRO (Sign Up) ---
     @PostMapping("/register")
     public ResponseEntity<AuthResponse> register(@RequestBody Usuario usuario) {
-        // 1. Guardamos el usuario nuevo (UsuarioService se encarga de encriptar la password)
         usuarioService.save(usuario);
-
-        // 2. Cargamos los detalles del usuario recién creado para el token
-        // (Asumiendo que buscas por nombre, ajusta si buscas por correo)
-        UserDetails userDetails = userDetailsService.loadUserByUsername(usuario.getNombre());
-
-        // 3. Generamos el token inmediatamente para que quede logueado
+        // Al registrar, usamos el correo para generar el token
+        UserDetails userDetails = userDetailsService.loadUserByUsername(usuario.getCorreo());
         String token = jwtService.generateToken(userDetails);
-
         return ResponseEntity.ok(new AuthResponse(token));
+    }
+
+    // --- CORRECCIÓN AQUÍ: BUSCAR POR CORREO ---
+    @GetMapping("/me")
+    public ResponseEntity<Usuario> getMyProfile() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String email = authentication.getName(); // El token contiene el correo
+
+        // Buscamos explícitamente por correo
+        Optional<Usuario> user = usuarioRepository.findByCorreo(email);
+
+        if (user.isPresent()) {
+            return ResponseEntity.ok(user.get());
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 }
 
-// Clases auxiliares (pueden ir en el mismo archivo o separados)
+// Clases auxiliares
 class LoginRequest {
 
     private String username;
     private String password;
 
-    // Getters y Setters
     public String getUsername() {
         return username;
     }
